@@ -1,0 +1,110 @@
+@import "compass/css3";
+
+@import url(https://fonts.googleapis.com/css?family=Karla);
+
+* {
+  box-sizing:border-box; 
+  padding:0;
+  margin:0;
+}
+
+html { height:100%; }
+
+
+#card {
+  width:200px;
+  margin:50px auto 0;
+}
+
+#main {
+  width:100%;
+  border:1px solid #a9bccb;
+  border-bottom:none;
+	border-radius:0.4em 0.4em 0 0;
+  background:linear-gradient(#EDEDED,#CCC);
+  position:relative;
+  padding:80px 10px 20px 10px;
+  transition:all 0.3s ease-out;
+  
+}
+
+h1 {
+  font-weight:normal;
+  color:#312d2a;
+  
+  font-size:18px;
+  padding-bottom:7px;
+  text-shadow:0 1px 0 rgba(255,255,255,1);
+}
+
+h2 {
+ 	color:#746d67;
+  font-size:12px;
+  letter-spacing:1px;
+  font-weight:normal;
+}
+
+#img-wrapper img {
+  display:block;
+  margin:0 auto;
+  margin-top:7px;
+  border-radius:3px;
+}
+
+#img-wrapper {
+ 	position:absolute;
+  top:-30px;
+  left:50%;
+  margin-left:-48px;
+  box-shadow:0 0 4px rgba(0,0,0,0.2);
+  width:96px;
+  height:96px;
+  background:#fff;
+  border-radius:5px;
+  border:1px solid rgba(0,0,0,0.3);
+}
+
+
+
+.clearfix:after {
+  clear:both;
+  content:"";
+  display:table;
+}
+
+li {
+ 	float:left;
+  color:white;
+  font-size:14px;
+  width:50%;
+  padding:10px 0;
+  text-shadow:0 1px 0 rgba(0,0,0,0.4);
+}
+
+li:first-of-type {
+  border-right:1px solid rgba(0,0,0,0.3);
+  border-left:1px solid rgba(0,0,0,0.1);
+  border-bottom:1px solid rgba(0,0,0,0.1);
+}
+
+li:last-of-type {
+  border-left:1px solid rgba(255,255,255,0.1);
+  border-right:1px solid rgba(0,0,0,0.1);
+  border-bottom:1px solid rgba(0,0,0,0.1);
+}
+
+.figure {
+ 	font-weight:bold;
+  font-size:25px;
+  padding:3px 0;
+  display:block;
+}
+
+/*#card:hover #secondary{
+  bottom:100px;
+}
+
+#card:hover #main {
+ 	 border:1px solid #a9bccb;
+   box-shadow: none;
+}*/

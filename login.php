@@ -1,4 +1,5 @@
 <?php
+include 'includes/error_report.php';
 
 session_start();
 
@@ -49,22 +50,11 @@ endif;
 	<?php endif; ?>
 
 		<h1><strong>Login.</strong></h1>
-		<form action="login.php" method="POST">
-				<!-- <fieldset> -->
+		<form action="login.php" method="POST">				
 					<p><input type="text" placeholder="E-mail" name="email" required></p>
 					<p><input type="password" placeholder="Password" name="password" required></p>
 					<p class="register">Don't have a account? <a href="register.php">Register here.</a></p>
 					<p><input type="submit" value="Login"></p>
-				<!-- </fieldset> -->
 		</form>
-	<!-- <form action="login.php" method="POST">
-		
-		<input type="text" placeholder="Enter your email" name="email">
-		<input type="password" placeholder="and password" name="password">
-
-		<input type="submit">
-
-	</form> -->
-
 </body>
 </html>

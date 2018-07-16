@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+include 'includes/error_report.php';
 
 session_start();
 

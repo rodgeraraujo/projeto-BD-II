@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+include 'includes/error_report.php';
 
 session_start();
 
@@ -13,7 +13,6 @@ $message = '';
 
 if(!empty($_POST['email']) && !empty($_POST['password'])):
 	
-	// Enter the new user in the database
 	$sql = "INSERT INTO users (name, email, course, institution, password) 
 			VALUES (:name, :email, :course, :institution, :password)";
 	$stmt = $conn->prepare($sql);
@@ -22,7 +21,7 @@ if(!empty($_POST['email']) && !empty($_POST['password'])):
 	$stmt->bindParam(':email', $_POST['email']);
 	$stmt->bindParam(':course', $_POST['course_name']);
 	$stmt->bindParam(':institution', $_POST['institution_name']);
-	$stmt->bindParam(':password', password_hash($_POST['password'], PASSWORD_BCRYPT));
+	$stmt->bindValue(':password', password_hash($_POST['password'], PASSWORD_BCRYPT));
 
 	if( $stmt->execute() ):
 		$message = 'Successfully created new user';
@@ -57,7 +56,6 @@ endif;
 	<h1><strong>Sign Up.</strong> It's free.</h1>
 	<div id="c2">
 		<form action="register.php" method="POST">
-				<!-- <fieldset> -->
 					<p><input type="text" placeholder="Name" name="name" required></p>
 					<p><input type="text" placeholder="E-mail" name="email" required></p>
 					<p><input type="text" placeholder="Course" name="course_name" required></p>
@@ -66,18 +64,7 @@ endif;
 					<p><input type="password" placeholder="Confirm password" name="confirm_password" required></p>
 					<p class="register">Have a account? <a href="login.php">Login here.</a></p>
 					<p><input type="submit" value="Login"></p>
-				<!-- </fieldset> -->
 		</form>
 	</div>
-	
-	<!-- <form action="register.php" method="POST">
-		
-		<input type="text" placeholder="Your email" name="email">
-		<input type="password" placeholder="Password" name="password">
-		<input type="password" placeholder="Confirm password" name="confirm_password">
-		<input type="submit">
-
-	</form> -->
-
 </body>
 </html>

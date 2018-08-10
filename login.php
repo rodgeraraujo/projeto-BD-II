@@ -1,60 +1,62 @@
 <?php
-include 'includes/error_report.php';
+    include 'includes/header_session.php';
 
-session_start();
+    if(!isset($_SESSION)){
+        session_start();
+    }
 
-if( isset($_SESSION['user_id']) ){
-	header("Location: index.php");
-}
+    if( isset($_SESSION['user_id']) ){
+        header("Location: index.php");
+    }
 
-require 'includes/config.php';
+    require 'includes/config.php';
 
-if(!empty($_POST['email']) && !empty($_POST['password'])):
-	
-	$records = $conn->prepare('SELECT id,email,password FROM users WHERE email = :email');
-	$records->bindParam(':email', $_POST['email']);
-	$records->execute();
-	$results = $records->fetch(PDO::FETCH_ASSOC);
+    if(!empty($_POST['email']) && !empty($_POST['password'])):
 
-	$message = '';
+        $records = $conn->prepare('SELECT id,email,password FROM users WHERE email = :email');
+        $records->bindParam(':email', $_POST['email']);
+        $records->execute();
+        $results = $records->fetch(PDO::FETCH_ASSOC);
 
-	if(count($results) > 0 && password_verify($_POST['password'], $results['password']) ){
+        $message = '';
 
-		$_SESSION['user_id'] = $results['id'];
-		header("Location: index.php");
+        if(count($results) > 0 && password_verify($_POST['password'], $results['password']) ){
 
-	} else {
-		$message = 'Sorry, those credentials do not match';
-	}
+            $_SESSION['user_id'] = $results['id'];
+            header("Location: index.php");
 
-endif;
+        } else {
+            $message = 'Sorry, those credentials do not match';
+        }
 
+    endif;
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Login Below</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-	<link rel="stylesheet" type="text/css" href="assets/css/form.css">
-	<link href='http://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
-</head>
-<body>
-
 	<?php
-		include 'includes/header.php';
+        include 'includes/header_notlogged.php';
 
 		if(!empty($message)): ?>
 			<p><?= $message ?></p>
 	<?php endif; ?>
+    <div class="grid">
 
-		<h1><strong>Login.</strong></h1>
-		<form action="login.php" method="POST">				
-					<p><input type="text" placeholder="E-mail" name="email" required></p>
-					<p><input type="password" placeholder="Password" name="password" required></p>
-					<p class="register">Don't have a account? <a href="register.php">Register here.</a></p>
-					<p><input type="submit" value="Login"></p>
-		</form>
+        <form action="login.php" method="post" class="form login">
+            <header class="login__header">
+                <h3 class="login__title">Login</h3>
+            </header>
+            <div class="login__body">
+                <div class="form__field">
+                    <input type="email" placeholder="Email" name="email" required>
+                </div>
+                <div class="form__field">
+                    <input type="password" placeholder="Password" name="password" required>
+                </div>
+            </div>
+            <footer class="login__footer">
+                <input type="submit" value="Login">
+                <p>Don't have a account? <a href="register.php">Register here.</a></p>
+            </footer>
+        </form>
+    </div>
 </body>
 </html>

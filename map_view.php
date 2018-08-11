@@ -114,7 +114,106 @@
             delete markers[markerId]; // delete marker instance from markers object
         };
 
-         // Code for function to print on map and save on database here
+        var i ; var confirmed = 0;
+        for (i = 0; i < locations.length; i++) {
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                map: map,
+                icon :   locations[i][7] === '1' ?  red_icon  : purple_icon,
+                html:  "<div>\n" +
+                "       <table class=\"map1\">\n" +
+                "           <tr>\n" +
+                "               <td><label>Título:</label></td>\n" +
+                "               <td><input disabled type='text' id='manual_title' placeholder='" + locations[i][3] +"'></td></tr>\n" +
+                "               <td><label>Tema:</label></td>\n" +
+                "               <td><input disabled type='text' id='manual_theme' placeholder='" + locations[i][4] +"'></td></tr>\n" +
+                "               <td><label>Data início:</label></td>\n" +
+                "               <td><input disabled type='text' id='manual_date_begin' placeholder='" + formatDate(locations[i][5], 'pt-br') +"'></td></tr>\n" +
+                "               <td><label>Data fim:</label></td>\n" +
+                "               <td><input disabled type='text' id='manual_date_end' placeholder='" + formatDate(locations[i][6], 'pt-br') +"'></td></tr>\n" +
+                "               <td><label>ID:</label></td>\n" +
+                "               <td><input disabled class='id-marker' type='text' id='id' placeholder='#000" + locations[i][0] +"'></td></tr>\n" +
+                "        </table>\n" +
+                "    </div>"
+            });
+
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    infowindow = new google.maps.InfoWindow();
+                    confirmed =  locations[i][7] === '1' ?  'checked'  :  0;
+                    $("#confirmed").prop(confirmed,locations[i][7]);
+                    $("#id").val(locations[i][0]);
+                    $("#title").val(locations[i][3]);
+                    $("#form").show();
+                    infowindow.setContent(marker.html);
+                    infowindow.open(map, marker);
+                }
+            })(marker, i));
+        }
+            var address = "";
+
+            function saveData(lat,lng) {
+                var userId = <?php echo $user['id'] ?>;
+                var title = document.getElementById('manual_title').value;
+                var theme = document.getElementById('manual_theme').value;
+                var date_begin = document.getElementById('manual_date_begin').value;
+                var date_end = document.getElementById('manual_date_end').value;
+
+                
+                var url = 'locations_model.php?add_location&title=' + title + '&theme=' + theme+ '&date_begin=' + date_begin + '&date_end=' + date_end + '&lat=' + lat + '&lng=' + lng + '&userId=' + userId;
+
+                downloadUrl(url, function(data, responseCode) {
+                    if (responseCode === 200  && data.length > 1) {
+                        var markerId = getMarkerUniqueId(lat,lng); // get marker id by using clicked point's coordinate
+                        var manual_marker = markers[markerId]; // find marker
+                        manual_marker.setIcon(purple_icon);
+                        infowindow.close();
+                        infowindow.setContent("<div style=' color: purple; font-size: 25px;'> Insert with success!!</div>");
+                        infowindow.open(map, manual_marker);
+                        window.open("index.php","_self");
+
+                    }else{
+                        console.log(responseCode);
+                        console.log(data);
+                        infowindow.setContent("<div style='color: red; font-size: 25px;'>Inserting Errors</div>");
+                    }
+                });
+            }
+
+            function formatDate(data, formato) {
+                if (formato == 'pt-br') {
+                    return (data.substr(0, 10).split('-').reverse().join('/'));
+                } else {
+                    return (data.substr(0, 10).split('/').reverse().join('-'));
+                }
+            }
+            
+            function GetAddress(lat, lng) {
+                var latlng = new google.maps.LatLng(lat, lng);
+                var geocoder = geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[0]) {
+                            address = results[0].formatted_address;
+                        }
+                    }
+                });
+            }
+
+            function downloadUrl(url, callback) {
+            var request = window.ActiveXObject ?
+                new ActiveXObject('Microsoft.XMLHTTP') :
+                new XMLHttpRequest;
+
+            request.onreadystatechange = function() {
+                if (request.readyState == 4) {
+                    callback(request.responseText, request.status);
+                }
+            };
+
+            request.open('GET', url, true);
+            request.send(null);
+        }
          
     </script>
 

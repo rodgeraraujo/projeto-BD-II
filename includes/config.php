@@ -2,7 +2,7 @@
 $server = 'localhost'; //Server name
 $username = 'root'; //Server username
 $password = ''; //Server password
-$database = 'login1'; //Database name
+$database = 'geolocaliza'; //Database name
 
 try{
 	$conn = new PDO("mysql:host=$server;dbname=$database;", $username, $password);

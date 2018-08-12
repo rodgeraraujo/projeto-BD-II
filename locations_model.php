@@ -24,7 +24,7 @@ function add_location(){
     
 
     // Inserts new row with place data.
-    $query = sprintf("INSERT INTO locations " .
+    $query = sprintf("INSERT INTO events_location " .
         " (id, lat, lng, title, theme, date_begin, date_end, user_id) " .
         " VALUES (NULL, '%s', '%s', '%s', '%s', '%s', '%s', '%s');",
         mysqli_real_escape_string($con,$lat),
@@ -49,7 +49,7 @@ function confirm_location(){
     $id =$_GET['id'];
     $confirmed =$_GET['confirmed'];
     // update location with confirm if admin confirm.
-    $query = "update locations set location_status = $confirmed WHERE id = $id ";
+    $query = "update events_location set location_status = $confirmed WHERE id = $id ";
     $result = mysqli_query($con,$query);
     echo "Inserted Successfully";
     if (!$result) {
@@ -62,7 +62,7 @@ function get_confirmed_locations(){
         die('Not connected : ' . mysqli_connect_error());
     }
     // update location with location_status if admin location_status.
-    $sqldata = mysqli_query($con,"select id, lat, lng, title, theme, date_begin, date_end, location_status, user_id as isconfirmed from locations WHERE  location_status = 1
+    $sqldata = mysqli_query($con,"select id, lat, lng, title, theme, date_begin, date_end, location_status, user_id as isconfirmed from events_location WHERE  location_status = 1
   ");
 
     $rows = array();
@@ -86,7 +86,7 @@ function get_all_locations(){
         die('Not connected : ' . mysqli_connect_error());
     }
     // update location with location_status if admin location_status.
-    $sqldata = mysqli_query($con,"select id, lat, lng, title, theme, date_begin, date_end, location_status, user_id as isconfirmed from locations
+    $sqldata = mysqli_query($con,"select id, lat, lng, title, theme, date_begin, date_end, location_status, user_id as isconfirmed from events_location
   ");
 
     $rows = array();

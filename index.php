@@ -5,6 +5,7 @@
     if( !empty($user) ): ?>
         <?php
         $title = "Add a event marker on map";
+        $messageMap = '<b><p style="text-align: justify;">Clique no mapa para colocar um marcador, </p><p style="text-align: justify;">clique com o botão direito para remover.</p></b>';
 
         include 'includes/header_logged.php';
 

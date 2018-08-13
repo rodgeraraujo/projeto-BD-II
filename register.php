@@ -41,11 +41,11 @@
 	<?php endif; ?>
 
     <div class="grid">
-        <form action="register.php" method="post" class="form login">
-            <header class="register__header">
-                <h3 class="register__title">Register</h3>
+        <form action="register.php" method="post" class="form login" id="register_form">
+            <header class="login__header">
+                <h3 class="login__title">Register</h3>
             </header>
-            <div class="register__body">
+            <div class="login__body">
                 <div class="form__field">
                     <input type="text" placeholder="Name" name="name" required>
                 </div>
@@ -59,18 +59,33 @@
                     <input type="text" placeholder="Institution" name="institution_name" required>
                 </div>
                 <div class="form__field">
-                    <input type="password" placeholder="Password" name="password" required>
+                    <input id="password" type="password" placeholder="Password" name="password" required>
                 </div>
                 <div class="form__field">
-                    <input type="password" placeholder="Confirm password" name="confirm_password" required>
+                    <input id="confirm_password" type="password" placeholder="Confirm password" name="confirm_password" required>
                 </div>
             </div>
-            <footer class="register__footer">
+            <footer class="login__footer">
                 <input type="submit" value="Register">
                 <p>Have a account? <a href="login.php">Login now.</a></p>
             </footer>
         </form>
 
+        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+        <script>
+   
+        $( "#register_form" ).validate({
+          rules: {
+            password: "required",
+            confirm_password: {
+              equalTo: "#password"
+            }
+          }
+        });
+        </script>
     </div>
 </body>
 </html>

@@ -18,7 +18,12 @@
 	<?php else: ?>
         <?php include 'includes/header_notlogged.php';  ?>
 
-        <div class="container">
+        <div class="container" style="padding-top: 35px">
+            <header class="cf">
+                <nav>
+                    <h1 class="logo"><a href="index.php"><img width="150" style="position: absolute; top: 15px;left: 45%" src="assets/img/mapicon.png"></a></h1>
+                </nav>
+            </header>
             <div class="grid">
                 <form action="login.php" method="post" class="form login">
                     <header class="login__header">
@@ -41,6 +46,5 @@
             <div class="zoominbox"></div>
         </div>
 	<?php endif; ?>
-
 </body>
 </html>

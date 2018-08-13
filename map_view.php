@@ -218,8 +218,7 @@
             request.send(null);
         }
         
-        //    FILTROS DE BUSCA - INICIO
-        //Busca por nome do tema
+        // FILTERS OF SEARCH - BEGIN
         function showEventsTheme(){
             for (var i = gmarkers.length - 1; i >= 0; i--) {
                 gmarkers[i].setMap(null);
@@ -277,6 +276,7 @@
                 lng: position.coords.longitude
             };
 
+            ciculo.setMap(null);
 
             var radius_km = Number(document.getElementById('radius_filter').value) * 1000;
     
@@ -285,7 +285,7 @@
                 map: map,
                 center:  pos,
                 radius: radius_km,
-                strokeColor: "#818c99",
+                strokeColor: "#818c99", 
                 fillColor:"#ffffff",
                 fillOpacity: 0.35,
             });

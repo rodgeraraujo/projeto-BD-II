@@ -33,7 +33,7 @@ div.wrapper {
 	cursor:pointer;
 }
 /*index logged inputs css*/
-.map1 input[type="text"], .map1 input[type="password"], .map1 input[type="date"] {
+.form_active input[type="text"], .form_active input[type="date"] {
 	color: #312d2a;
 	outline:none;
 	padding:5px;
@@ -46,7 +46,32 @@ div.wrapper {
 	margin-right: 5px;
 }
 
-input[type="submit"], input[type="button"] {
+.map1 input[type="text"], .map1 input[type="password"], .map1 input[type="date"] {
+	color: #312d2a;
+	outline:none;
+	padding:5px;
+	display:block;
+	width:180px;
+	border-radius: 6px;
+	border:1px solid #eee;
+	margin:0px auto;
+	margin-top: 10px;
+	margin-right: 5px;
+}
+.search_button{
+	color: #312d2a;
+	outline:none;
+	padding:5px;
+	display:block;
+	width: 120px;
+	border-radius: 6px;
+	border:1px solid #eee;
+	margin:0px auto;
+	margin-top: 10px;
+	margin-right: 405px;
+}
+
+input[type="submit"], input[type="button"], button {
 	padding:5px;
 	color: #312d2a;
 	background-color:#0098cb;

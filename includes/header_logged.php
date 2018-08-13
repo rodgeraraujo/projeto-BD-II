@@ -8,7 +8,6 @@
     <title>Bem-vindo <?php echo $user['name'] ?></title>
 
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/form.css">
     <link rel="stylesheet" media="screen" href="http://jsfiddle.net/css/embed/embed-light.css" />
     <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
     <style>html, body {height: 100%;margin: 0;padding: 0;}#map {height: 100%;width: 78%;margin-left: 22%;border: 1px solid #ddd;}</style>
@@ -37,7 +36,7 @@
                             <br><br>
                             <label>Busca eventos por tema:</label><br>
                             <input id="theme_filter" type="text">
-                            <button onClick="showEventsTheme()" type="submit">Buscar</button>
+                            <button class="search_button" onClick="showEventsTheme()" type="submit">Buscar</button>
 
                             <br><br><br>
                             <label>Buscar eventos no raio:</label><br>
@@ -47,12 +46,12 @@
                                 <option value=10>10km</option>
                                 <option value=50>50km</option>
                             </select>
-                            <button onClick="showEventsRadius()">Buscar</button>
+                            <button class="search_button" onClick="showEventsRadius()">Buscar</button>
 
                             <br><br><br>
                             <label>Buscar eventos por data:</label><br>
                             <input id="date_filter" type="date">
-                            <button onClick="showEventsDate()" type="submit">Buscar</button>    
+                            <button class="search_button" onClick="showEventsDate()" type="submit">Buscar</button>    
                         </div>
                     </div>
                     <!--Filter -- begin-->

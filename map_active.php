@@ -119,7 +119,7 @@
 
 <div id="map"></div>
 
-<div style="display: none" id="form">
+<div style="display: none" id="form" class="form_active">
     <table class=\"map1\">
         <input name="id" disabled type='hidden' id='id'/>
            <tr>

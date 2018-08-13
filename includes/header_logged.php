@@ -8,7 +8,7 @@
     <title>Bem-vindo <?php echo $user['name'] ?></title>
 
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <!-- <link rel="stylesheet" type="text/css" href="assets/css/form.css"> -->
+    <link rel="stylesheet" type="text/css" href="assets/css/form.css">
     <link rel="stylesheet" media="screen" href="http://jsfiddle.net/css/embed/embed-light.css" />
     <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
     <style>html, body {height: 100%;margin: 0;padding: 0;}#map {height: 100%;width: 78%;margin-left: 22%;border: 1px solid #ddd;}</style>

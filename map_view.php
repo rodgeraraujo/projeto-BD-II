@@ -1,7 +1,7 @@
     <div id="map"></div>
 
     <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?language=en&key=AIzaSyA-AB-9XZd-iQby-bNLYPFyb0pR2Qw3orw"></script>
+            src="https://maps.googleapis.com/maps/api/js?language=en&libraries=geometry,places&key=AIzaSyA-AB-9XZd-iQby-bNLYPFyb0pR2Qw3orw"></script>
     <script>
         var infowindow;
         var map;
@@ -35,6 +35,8 @@
             // Browser doesn't support Geolocation
             handleLocationError(false, infoWindow, map.getCenter());
         }
+
+        var gmarkers = [];
 
         function handleLocationError(browserHasGeolocation, infoWindow, pos) {
             infoWindow.setPosition(pos);
@@ -149,6 +151,7 @@
                     infowindow.open(map, marker);
                 }
             })(marker, i));
+            gmarkers.push(marker);
         }
             var address = "";
 
@@ -214,7 +217,179 @@
             request.open('GET', url, true);
             request.send(null);
         }
-         
+        
+        //    FILTROS DE BUSCA - INICIO
+        //Busca por nome do tema
+        function showEventsTheme(){
+            for (var i = gmarkers.length - 1; i >= 0; i--) {
+                gmarkers[i].setMap(null);
+            }
+            var i ; var confirmed = 0;
+            for (i = 0; i < locations.length; i++) {
+                if (locations[i][4] === document.getElementById('theme_filter').value) {
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                        map: map,
+                        icon : green_icon,
+                        visible: true,
+                        html:  "<div>\n" +
+                        "       <table class=\"map1\">\n" +
+                        "           <tr>\n" +
+                        "               <td><label>Título:</label></td>\n" +
+                        "               <td><input disabled type='text' id='manual_title' placeholder='" + locations[i][3] +"'></td></tr>\n" +
+                        "               <td><label>Tema:</label></td>\n" +
+                        "               <td><input disabled type='text' id='manual_theme' placeholder='" + locations[i][4] +"'></td></tr>\n" +
+                        "               <td><label>Data início:</label></td>\n" +
+                        "               <td><input disabled type='text' id='manual_date_begin' placeholder='" + formatDate(locations[i][5], 'pt-br') +"'></td></tr>\n" +
+                        "               <td><label>Data fim:</label></td>\n" +
+                        "               <td><input disabled type='text' id='manual_date_end' placeholder='" + formatDate(locations[i][6], 'pt-br') +"'></td></tr>\n" +
+                        "               <td><label>ID:</label></td>\n" +
+                        "               <td><input disabled class='id-marker' type='text' id='id' placeholder='#000" + locations[i][0] +"'></td></tr>\n" +
+                        "        </table>\n" +
+                        "    </div>",
+                    });
+
+                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                        return function() {
+                            infowindow = new google.maps.InfoWindow();
+                            confirmed =  locations[i][7] === '1' ?  'checked'  :  0;
+                            $("#confirmed").prop(confirmed,locations[i][7]);
+                            $("#id").val(locations[i][0]);
+                            $("#title").val(locations[i][3]);
+                            $("#form").show();
+                            infowindow.setContent(marker.html);
+                            infowindow.open(map, marker);
+                        }
+                    })(marker, i));
+                    gmarkers.push(marker);
+                }
+            }
+        }
+
+        function showEventsRadius(){
+            for (var i = gmarkers.length - 1; i >= 0; i--) {
+                gmarkers[i].setMap(null);
+            }
+                
+            navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+
+
+            var radius_km = Number(document.getElementById('radius_filter').value) * 1000;
+    
+            var posicao = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+                var ciculo = new google.maps.Circle({
+                map: map,
+                center:  pos,
+                radius: radius_km,
+                strokeColor: "#818c99",
+                fillColor:"#ffffff",
+                fillOpacity: 0.35,
+            });
+
+            for (var i = locations.length - 1; i >= 0; i--) {
+                var marker_lat_lng = new google.maps.LatLng(locations[i][1],locations[i][2]);
+                var distance_from_location = google.maps.geometry.spherical.computeDistanceBetween(marker_lat_lng, posicao);
+
+                if (google.maps.geometry.spherical.computeDistanceBetween(marker_lat_lng, posicao) <= radius_km){
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                        map: map,
+                        draggable: true,
+                        icon : green_icon,
+                        visible: true,
+                        html:  "<div>\n" +
+                        "       <table class=\"map1\">\n" +
+                        "           <tr>\n" +
+                        "               <td><label>Título:</label></td>\n" +
+                        "               <td><input disabled type='text' id='manual_title' placeholder='" + locations[i][3] +"'></td></tr>\n" +
+                        "               <td><label>Tema:</label></td>\n" +
+                        "               <td><input disabled type='text' id='manual_theme' placeholder='" + locations[i][4] +"'></td></tr>\n" +
+                        "               <td><label>Data início:</label></td>\n" +
+                        "               <td><input disabled type='text' id='manual_date_begin' placeholder='" + formatDate(locations[i][5], 'pt-br') +"'></td></tr>\n" +
+                        "               <td><label>Data fim:</label></td>\n" +
+                        "               <td><input disabled type='text' id='manual_date_end' placeholder='" + formatDate(locations[i][6], 'pt-br') +"'></td></tr>\n" +
+                        "               <td><label>ID:</label></td>\n" +
+                        "               <td><input disabled class='id-marker' type='text' id='id' placeholder='#000" + locations[i][0] +"'></td></tr>\n" +
+                        "        </table>\n" +
+                        "    </div>",
+                    });
+
+                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                        return function() {
+                            infowindow = new google.maps.InfoWindow();
+                            confirmed =  locations[i][7] === '1' ?  'checked'  :  0;
+                            $("#confirmed").prop(confirmed,locations[i][7]);
+                            $("#id").val(locations[i][0]);
+                            $("#title").val(locations[i][3]);
+                            $("#form").show();
+                            infowindow.setContent(marker.html);
+                            infowindow.open(map, marker);
+                        }
+                    })(marker, i));
+                    gmarkers.push(marker); 
+                }
+            }
+        });
+
+        }
+
+        function showEventsDate(){
+            for (var i = gmarkers.length - 1; i >= 0; i--) {
+                gmarkers[i].setMap(null);
+            }
+
+            var i ; var confirmed = 0;
+            for (i = 0; i < locations.length; i++) {
+                var from = Date.parse(locations[i][5]);
+                var to = Date.parse(locations[i][6]);
+                var check = Date.parse(document.getElementById('date_filter').value);
+
+                if((check <= to && check >= from)){
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                        map: map,
+                        draggable: true,
+                        icon : green_icon,
+                        visible: true,
+                        html:  "<div>\n" +
+                        "       <table class=\"map1\">\n" +
+                        "           <tr>\n" +
+                        "               <td><label>Título:</label></td>\n" +
+                        "               <td><input disabled type='text' id='manual_title' placeholder='" + locations[i][3] +"'></td></tr>\n" +
+                        "               <td><label>Tema:</label></td>\n" +
+                        "               <td><input disabled type='text' id='manual_theme' placeholder='" + locations[i][4] +"'></td></tr>\n" +
+                        "               <td><label>Data início:</label></td>\n" +
+                        "               <td><input disabled type='text' id='manual_date_begin' placeholder='" + formatDate(locations[i][5], 'pt-br') +"'></td></tr>\n" +
+                        "               <td><label>Data fim:</label></td>\n" +
+                        "               <td><input disabled type='text' id='manual_date_end' placeholder='" + formatDate(locations[i][6], 'pt-br') +"'></td></tr>\n" +
+                        "               <td><label>ID:</label></td>\n" +
+                        "               <td><input disabled class='id-marker' type='text' id='id' placeholder='#000" + locations[i][0] +"'></td></tr>\n" +
+                        "        </table>\n" +
+                        "    </div>",
+                    });
+
+                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                        return function() {
+                            infowindow = new google.maps.InfoWindow();
+                            confirmed =  locations[i][7] === '1' ?  'checked'  :  0;
+                            $("#confirmed").prop(confirmed,locations[i][7]);
+                            $("#id").val(locations[i][0]);
+                            $("#title").val(locations[i][3]);
+                            $("#form").show();
+                            infowindow.setContent(marker.html);
+                            infowindow.open(map, marker);
+                        }
+                    })(marker, i));
+                    gmarkers.push(marker);
+                }
+            }
+        }
+
+        // FILTROS DE BUSCA - FIM
     </script>
 
 

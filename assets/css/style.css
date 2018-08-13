@@ -1,0 +1,72 @@
+
+body{
+	background-color: #993300;
+	margin:0px;
+	padding:0px;
+	font-family: 'Arial', cursive;
+}
+
+div.wrapper {
+	width: 300px;
+	height:300px;
+	border:1px solid black;
+}
+/*search inputs css*/
+#theme_filter, #date_filter, #radius_filter {
+	color: #312d2a;
+	outline:none;
+	padding:5px;
+	display:block;
+	width:180px;
+	border-radius: 6px;
+	border:1px solid #eee;
+}
+
+.button_search {
+	padding:5px;
+	color: #312d2a;
+	border: 1px solid gray;
+	margin:0px auto;
+	margin-left: 5px;
+	margin-top: 10px;
+	border-radius: 6px;
+	cursor:pointer;
+}
+/*index logged inputs css*/
+.map1 input[type="text"], .map1 input[type="password"], .map1 input[type="date"] {
+	color: #312d2a;
+	outline:none;
+	padding:5px;
+	display:block;
+	width:180px;
+	border-radius: 6px;
+	border:1px solid #eee;
+	margin:0px auto;
+	margin-top: 10px;
+	margin-right: 5px;
+}
+
+input[type="submit"], input[type="button"] {
+	padding:5px;
+	color: #312d2a;
+	background-color:#0098cb;
+	width:255px;
+	margin:0px auto;
+	margin-left: 5px;
+	margin-top: 10px;
+	border:0px;
+	border-radius: 6px;
+	cursor:pointer;
+}
+
+.header{
+	border-bottom:1px solid #eee;
+	padding:10px 0px;
+	width:100%;
+	text-align:center;
+}
+
+.header a{
+	color:#333;
+	text-decoration: none;
+}

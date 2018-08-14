@@ -6,7 +6,6 @@
     <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bem-vindo <?php echo $user['name'] ?></title>
-
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <link rel="stylesheet" media="screen" href="http://jsfiddle.net/css/embed/embed-light.css" />
     <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
@@ -17,7 +16,7 @@
         <header>
             <!-- <h1><a href="profile.php">Perfil</a></h1> -->
             <h1><a href="logout.php">Logout</a></h1>
-            <h1><a href="events.php">Meus eventos</a></h1>
+            <h1><a href="<?php echo "events.php?id=" . $user['id']?>">Meus eventos</a></h1>
             <!-- <h1><a href="#about">Sobre</a></h1>-->
             <h1><a href="index.php">Início</a></h1>
             <!--<h1><a href="#" target="_blank">Meus eventos</a></h1>-->
@@ -26,7 +25,11 @@
                     <li class=&quot;active&quot;>
                         <a data-trigger-type="result" href="index.php">GeoLocaliza</a>
                     </li>
-
+                    
+                    <?php 
+                    
+                    if( !isset($_GET['id']) ): ?>
+                   
                     <!--Filter -- begin-->
                     <div class="filter">
                         <div class="wrapper" style="margin: 20px; align: center;position: absolute;border: 1px; height: 100%; width: 30%">
@@ -55,6 +58,11 @@
                         </div>
                     </div>
                     <!--Filter -- begin-->
+
+                    <?php else: ?>
+                    <br><br><br><br>
+                    <?php endif; ?>
+
                 </ul>
                 <div class="hl"></div>
             </div>

@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `institution` varchar(200) NOT NULL DEFAULT '',
   `picture_img` VARCHAR(100) DEFAULT 'user/pic/avatar.png',
   `password` varchar(200) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`)
@@ -41,6 +42,19 @@ CREATE TABLE IF NOT EXISTS `events_location` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+INSERT INTO `events_location` (`id`, `lat`, `lng`, `title`, `theme`, `date_begin`, `date_end`, `location_status`, `user_id`) VALUES
+(1, -6.886578, -38.566971, 'Titulo', 'Tema', '2018-08-07', '2018-08-14', 1, 2),
+(2, -6.890533, -38.574574, 'teste 1', 'tema1', '2018-08-06', '2018-08-15', 1, 2),
+(3, -6.888520, -38.563305, 'tema2', ' tema2', '2018-07-30', '2018-08-28', 1, 2),
+(4, -6.888520, -38.563305, 'tema2', ' tema2', '2018-07-30', '2018-08-28', 1, 2),
+(5, -6.876915, -38.557457, 'tema3', 'tema3', '2018-08-08', '2018-08-22', 1, 2),
+(6, -6.890591, -38.574169, 'educaÃ§a', 'educacao', '2018-12-31', '2018-12-31', 1, 2),
+(7, -6.890702, -38.544933, 'Amostra', 'EducaÃ§Ã£o', '2018-09-04', '2018-09-07', 1, 1),
+(8, -6.888962, -38.545132, 'Amostra de Pesquisas', 'Tecnologia', '2018-08-15', '2018-08-17', 1, 7),
+(9, -6.886298, -38.550816, 'Amostra', 'Tecnologia', '2018-08-15', '2018-08-21', 1, 7),
+(10, -6.890181, -38.573875, 'Amostra e extensÃ£o..', 'Matematica', '2018-08-14', '2018-08-15', 0, 1);
 
 
 ALTER TABLE `events_location`
